@@ -29,8 +29,13 @@ public:
 			ordered.erase(node.iterator);
 			ordered.insert(ordered.begin(), key);
 			node.iterator = ordered.begin();
+
+			assert(values.count(key) != 0);
+			assert(values.at(key).iterator == ordered.begin());
+			assert(*ordered.begin() == key);
 			return {node.value};
 		} else {
+			assert(values.count(key) == 0);
 			return std::nullopt;
 		}
 	}
@@ -50,6 +55,9 @@ public:
 			ordered.insert(ordered.begin(), key);
 			values.insert({key, Node{value, ordered.begin()}});
 		}
+		assert(values.count(key) != 0);
+		assert(values.at(key).iterator == ordered.begin());
+		assert(*ordered.begin() == key);
 	}
 
 private:
